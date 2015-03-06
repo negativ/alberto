@@ -71,7 +71,7 @@ module Make(A: (module type of Alberto)) = struct
        >>= (fun x -> write_term w (create x))
        >>= loop
      in begin
-       try_with (fun () -> loop ()) >>= (fun _ -> exit 0)
+       try_with (fun () -> loop ()) >>= (fun _ -> Shutdown.exit 0)
      end
 end
 
