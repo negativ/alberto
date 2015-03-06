@@ -69,7 +69,10 @@ module Make(A: (module type of Alberto)) = struct
                      | `Atom "ping" -> create (`Atom "pong")
                      | term -> f term)
        >>= (fun x -> write_term w (create x))
-       >>= loop in try loop () with End_of_file -> exit 0
+       >>= loop
+     in begin
+       try_with (fun () -> loop ()) >>= (fun _ -> exit 0)
+     end
 end
 
 
